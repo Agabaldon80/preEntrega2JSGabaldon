@@ -1,35 +1,29 @@
 /* Algoritmo para nota final de estudiantes ingresados */
 
-/** FuNCIONES PARA SALUDOS Y DESPEDIDA */
+/** Mensajes para el usuario */
 
-// function mensaje(texto) {
-//   switch (texto) {
-//     case "saludo" :
-//       alert (
-//         "Hola"
-//       );
-//       break;
-//     case "despedida" :
-//       alert (
-//         "Adios"
-//       );
-//       break;
-//   }
-// }
+function mensaje(texto) {
+  switch (texto) {
+    case "bienvenida":
+      alert(
+        "Bienvenido al calculador de notas Eleusis, el cual le permite determinar el promedio de los estudiantes en su curso y si el mismo ha obtenido una mención. Para conocer el sistema de notación y las posibles menciones, haga por favor click en 'aceptar'"
+      );
+      break;
 
-// mensaje("saludo");
-// mensaje("despedida");
+    case "instruccion":
+      alert(
+        "El sistema de notación es de 1 hasta 20 puntos. Si el promedio es de 18, 19 o 20 puntos, el curso logra la mención 'Sobresaliente'; de 16 0 17 puntos, logra la mención 'Excelente'; de 14 o 15 puntos logra la mención 'Correcto'. Una nota menor a 14 no obtiene mención. Haga click en 'aceptar' para continuar y siga las instrucciones"
+      );
+      break;
 
+    case "despedida":
+      alert("Gracias por usar el calculador de notas Eleusis. Vuelva pronto");
+      break;
+  }
+}
 
-
-
-alert(
-  "Bienvenido al calculador de notas Eleusis, el cual le permite determinar el promedio de los estudiantes en su curso y si el mismo ha obtenido una mención. Para conocer el sistema de notación y las posibles menciones, haga por favor click en 'aceptar'"
-);
-
-alert(
-  "El sistema de notación es de 1 hasta 20 puntos. Si el promedio es de 18, 19 o 20 puntos, el curso logra la mención 'Sobresaliente'; de 16 0 17 puntos, logra la mención 'Excelente'; de 14 o 15 puntos logra la mención 'Correcto'. Una nota menor a 14 no obtiene mención. Haga click en 'aceptar' para continuar y siga las instrucciones"
-);
+mensaje("bienvenida");
+mensaje("instruccion");
 
 function Notas() {
   let curso = prompt(
@@ -72,22 +66,40 @@ function Notas() {
 
   const promedioNota = sumaNotas / estudiantes;
 
+  function mencion(texto) {
+    switch (texto) {
+      case "sobresaliente":
+        alert(
+          `El promedio del curso ${curso} es ${promedioNota} puntos y logra la mención 'Sobresaliente'`
+        );
+        break;
+
+      case "excelente":
+        alert(
+          `El promedio del curso ${curso} es ${promedioNota} puntos y logra la mención 'Excelente'`
+        );
+        break;
+      case "correcto":
+        alert(
+          `El promedio del curso ${curso} es ${promedioNota} puntos y logra la mención 'Correcto'`
+        );
+        break;
+
+      case "sin mencion":
+        alert(
+          `El promedio del curso ${curso} es ${promedioNota} puntos y no obtiene mención`
+        );
+        break;
+    }
+  }
   if (promedioNota <= 20 && promedioNota >= 18) {
-    alert(
-      `El promedio del curso ${curso} es ${promedioNota} puntos y logra la mención 'Sobresaliente'`
-    );
+    mencion("sobresaliente");
   } else if (promedioNota <= 17 && promedioNota >= 16) {
-    alert(
-      `El promedio del curso ${curso} es ${promedioNota} puntos y logra la mención 'Excelente'`
-    );
+    mencion("excelente");
   } else if (promedioNota <= 15 && promedioNota >= 14) {
-    alert(
-      `El promedio del curso ${curso} es ${promedioNota} puntos y logra la mención 'Correcto'`
-    );
+    mencion("correcto");
   } else {
-    alert(
-      `El promedio del curso ${curso} es ${promedioNota} puntos y no obtiene mención`
-    );
+    mencion("sin mencion");
   }
 
   return Notas;
@@ -95,4 +107,4 @@ function Notas() {
 
 Notas();
 
-alert("Gracias por usar el calculador de notas Eleusis. Vuelva pronto");
+mensaje("despedida");
