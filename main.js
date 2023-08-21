@@ -1,5 +1,15 @@
 /* Algoritmo para nota final de estudiantes ingresados */
 
+class Estudiante {
+  constructor(id, nombre, nota) {
+    this.id = id;
+    this.nombre = nombre;
+    this.nota = nota;
+  }
+}
+
+const estudiantesArray = [];
+
 /** Mensajes para el usuario */
 
 function mensaje(texto) {
@@ -22,10 +32,42 @@ function mensaje(texto) {
   }
 }
 
-mensaje("bienvenida");
-mensaje("instruccion");
+function mencion(texto, curso, promedioNota) {
+  let string = "";
+  estudiantesArray.forEach((alumnos) => {
+    string += `${alumnos.id}.- ${alumnos.nombre} tiene una nota de: ${alumnos.nota} puntos.\n`;
+  });
+
+  switch (texto) {
+    case "sobresaliente":
+      alert(
+        `El promedio del curso ${curso} es ${promedioNota} puntos y logra la mención 'Sobresaliente'\n${string}`
+      );
+      break;
+
+    case "excelente":
+      alert(
+        `El promedio del curso ${curso} es ${promedioNota} puntos y logra la mención 'Excelente'\n${string}`
+      );
+      break;
+    case "correcto":
+      alert(
+        `El promedio del curso ${curso} es ${promedioNota} puntos y logra la mención 'Correcto'\n${string}`
+      );
+      break;
+
+    case "sin mencion":
+      alert(
+        `El promedio del curso ${curso} es ${promedioNota} puntos y no obtiene mención\n${string}`
+      );
+      break;
+  }
+}
 
 function Notas() {
+  mensaje("bienvenida");
+  mensaje("instruccion");
+
   let curso = prompt(
     "Ingrese el nombre del curso cuyo promedio desea calcular"
   );
@@ -62,49 +104,25 @@ function Notas() {
     }
 
     sumaNotas += nota;
+
+    estudiantesArray.push(new Estudiante(i, `El estudiante ${i}`, nota));
   }
 
   const promedioNota = sumaNotas / estudiantes;
 
-  function mencion(texto) {
-    switch (texto) {
-      case "sobresaliente":
-        alert(
-          `El promedio del curso ${curso} es ${promedioNota} puntos y logra la mención 'Sobresaliente'`
-        );
-        break;
-
-      case "excelente":
-        alert(
-          `El promedio del curso ${curso} es ${promedioNota} puntos y logra la mención 'Excelente'`
-        );
-        break;
-      case "correcto":
-        alert(
-          `El promedio del curso ${curso} es ${promedioNota} puntos y logra la mención 'Correcto'`
-        );
-        break;
-
-      case "sin mencion":
-        alert(
-          `El promedio del curso ${curso} es ${promedioNota} puntos y no obtiene mención`
-        );
-        break;
-    }
-  }
   if (promedioNota <= 20 && promedioNota >= 18) {
-    mencion("sobresaliente");
-  } else if (promedioNota <= 17 && promedioNota >= 16) {
-    mencion("excelente");
-  } else if (promedioNota <= 15 && promedioNota >= 14) {
-    mencion("correcto");
+    mencion("sobresaliente", curso, promedioNota);
+  } else if (promedioNota < 18 && promedioNota >= 16) {
+    mencion("excelente", curso, promedioNota);
+  } else if (promedioNota < 16 && promedioNota >= 14) {
+    mencion("correcto", curso, promedioNota);
   } else {
-    mencion("sin mencion");
+    mencion("sin mencion", curso, promedioNota);
   }
-
+  mensaje("despedida");
   return Notas;
 }
 
 Notas();
 
-mensaje("despedida");
+
